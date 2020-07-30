@@ -1,9 +1,9 @@
-var mineSound, billyPlay;
+var mineSound, billyPlay, winMp3;
 var grid;
 
 var cols;
 var rows;
-var w = 20;
+var w = 30;
 
 function make2DArray(cols, rows) {
   var arr = new Array(cols);
@@ -13,10 +13,14 @@ function make2DArray(cols, rows) {
   return arr;
 }
 
+var options = [];
+
+
 function setup() {
   mineSound = loadSound('Explosion+1.mp3');
-  billyPlay = loadSound('endState.mp3')
-  var canvas = createCanvas(500, 500);
+  billyPlay = loadSound('endState.mp3');
+  winMp3 = loadSound('scenario.mp3');
+  var canvas = createCanvas(150, 150);
 
   cols = floor(width/w);
   rows = floor(height/w);
@@ -24,26 +28,49 @@ function setup() {
   grid = make2DArray(cols, rows);
   for (var i = 0; i < cols; i++) {
     for (var j = 0; j < rows; j++) {
-      grid[i][j] = new Cell(i*w, j*w, w);
+      grid[i][j] = new Cell(i, j, w);
+    }
+  }
+  for (var i = 0; i < cols; i++) {
+    for (var j = 0; j < rows; j++) {
+      grid[i][j].countMines();
     }
   }
 }
 
 function draw() {
-  background(100);
+  background(150);
+
+  // for (var i = 0; i < cols; i++) {
+  //   for (var j = 0; j < rows; j++) {
+  //     grid[i][j].updateScore();
+  //   }
+  // }
+
   for (var i = 0; i < cols; i++) {
     for (var j = 0; j < rows; j++) {
       grid[i][j].display();
     }
   }
-  
+ 
 }
 
 function mousePressed(event) {
-  if (event.button == 0) {
-    console.log("No");
-    mineSound.play();
-  } else {
-    billyPlay.loop();
-  }
+    for (var i = 0; i < cols; i++) {
+      for (var j = 0; j < rows; j++) {
+        if (grid[i][j].contains(mouseX, mouseY)) {
+          grid[i][j].reveal();
+        }
+      }
+    }
 }
+
+// function mousePressed() {
+//   for (var i = 0; i < cols; i++) {
+//     for (var j = 0; j < rows; j++) {
+//       if (grid[i][j].contains(mouseX, mouseY)) {
+//         grid[i][j].colorize();
+//       }
+//     }
+//   }
+// }
