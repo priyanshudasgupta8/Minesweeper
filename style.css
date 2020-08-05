@@ -4,6 +4,31 @@
   overflow: hidden;
 }
 
-canvas {
-  display: block;
+body {
+  background-image: url("bg.jpg");
+  color: white;
+  margin: 0;
+  font-family: "Arial Black", "Montserrat", "Avenir";
+}
+
+main {
+  display: flex;
+}
+
+hr {
+  margin-bottom: 0;
+}
+
+#vrl {
+  width: 1px;
+  height: 700px;
+  margin: 0;
+  float: left;
+}
+
+#vrr {
+  width: 1px;
+  height: 700px;
+  margin: 0;
+  float: right;
 }

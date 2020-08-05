@@ -1,5 +1,6 @@
 class Cell {
     constructor(i, j, w) {
+        // t = this;
         this.i = i;
         this.j = j;
         this.x = i * w;
@@ -7,13 +8,22 @@ class Cell {
         this.w = w;
         this.neighbourCount = 0;
 
-        this.image = loadImage('mine.jpg')
+        this.explosion = loadSound('Explosion+1.mp3');
 
-        if (random(1) < 0.5) {
+        if (random(1) < 0.25) {
             this.mine = true;
         } else {
             this.mine = false;
         }
+
+        if (mode == "Extreme" || mode == "extreme") {
+            if (random(1) < 0.2) {
+                this.mine = true;
+            } else {
+                this.mine = false;
+            }
+        }
+
         this.revealed = false;
     }
 
@@ -26,7 +36,7 @@ class Cell {
                 fill('red');
                 ellipse(this.x + this.w * 0.5, this.y + this.w * 0.5, this.w * 0.5);
             } else {
-                fill('lightgreen');
+                fill('skyblue');
                 noStroke();
                 rect(this.x-1, this.y-1, this.w+1, this.w+1);
                 textAlign(CENTER);
@@ -39,7 +49,7 @@ class Cell {
                 } else if (this.neighborCount == 4) {
                     fill('hotpink')
                 } else if (this.neighborCount == 0) {
-                    fill('lightgreen')
+                    fill('skyblue')
                 } else {
                     fill('red');
                 }
@@ -78,22 +88,48 @@ class Cell {
 
     reveal() {
         this.revealed = true;
+
+        if (this.neighborCount == 0){
+            this.floodFill();
+        }
     }
 
-    // colorize() {
-    //     fill(100);
-    //     noStroke();
-    //     rect(this.x, this.y, this.w, this.w);
-    // }
+    floodFill = function() {
+        for (var xoff = -1; xoff <= 1; xoff++) {
+          var i = this.i + xoff;
+          if (i < 0 || i >= cols) continue;
+      
+          for (var yoff = -1; yoff <= 1; yoff++) {
+            var j = this.j + yoff;
+            if (j < 0 || j >= rows) continue;
+      
+            var neighbor = grid[i][j];
+            // Note the neighbor.bee check was not required.
+            // See issue #184
+            if (!neighbor.revealed) {
+              neighbor.reveal();
+            }
+          }
+        }
+      };
 
-    // updateScore(score) {
-    //     if(mousePressed() && grid[i][j].contains(mouseX, mouseY) && this.mine == false) {
-    //         score++;
-    //         console.log(score);
-    //     } else if (mousePressed() && grid[i][j].contains(mouseX, mouseY) && this.mine == true) {
-    //         score -= 5;
-    //         console.log(score);
-    //     }
-    // }    
+
+
+// /*  colorize() {
+//         fill(100);
+//         noStroke();
+//         rect(this.x, this.y, this.w, this.w);
+//     }
+
+//     updateScore(score) {
+//         if(mousePressed() && grid[i][j].contains(mouseX, mouseY) && this.mine == false) {
+//             score++;
+//             console.log(score);
+//         } else if (mousePressed() && grid[i][j].contains(mouseX, mouseY) && this.mine == true) {
+//             score -= 5;
+//             console.log(score);
+//         }
+//     }    
+// }
+//
 }
-
