@@ -48,7 +48,7 @@ function setup() {
   }
 
   cols = floor(width/w);
-  rows = floor((height-10)/w);
+  rows = floor(height/w);
 
   grid = make2DArray(cols, rows);
   for (var i = 0; i < cols; i++) {
@@ -67,15 +67,13 @@ function draw() {
   if (GameState == 'play') {
     background('turquoise');
 
+    var scoreReflection = document.getElementById("score").innerText = `Score: ${score}`;
+
     for (var i = 0; i < cols; i++) {
       for (var j = 0; j < rows; j++) {
         grid[i][j].display();
       }
     }
-
-    textSize(25);
-    fill(0);
-    text(`Score: ${score}`, width - (width - 60), height - 7.5);
   }
 
   if (GameState == 'end') {
@@ -83,7 +81,7 @@ function draw() {
 
     fill('blue');
     textSize(15);
-    text("Game Over \n You Stepped on a Mine \n Make Better and \n Thought-through \n Decisions Next Time \n \n Reload to Play Again", width/2, (height/2) - 50)
+    text("Game Over \n You Stepped on a Mine \n Make Better and \n Thought-through \n Decisions Next Time \n \n Reload the page to Play Again", width/2, (height/2) - 50)
   }
 }
 
@@ -94,7 +92,7 @@ function mousePressed(event) {
         if (grid[i][j].contains(mouseX, mouseY)) {
           grid[i][j].reveal();
           if (!grid[i][j].mine) {
-            score++;
+            score += 10;
           } else {
             score = 0;
             GameState = 'end';

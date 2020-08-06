@@ -1,34 +1,24 @@
 * {
   margin: 0;
   padding: 0;
-  overflow: hidden;
 }
 
 body {
   background-image: url("bg.jpg");
-  color: white;
+  color: aliceblue;
   margin: 0;
-  font-family: "Arial Black", "Montserrat", "Avenir";
+  font-family: "san-serif", "Arial Black", "Montserrat", "Avenir";
 }
 
 main {
   display: flex;
 }
 
-hr {
-  margin-bottom: 0;
+h2 {
+  padding-bottom: 10px;
 }
 
-#vrl {
-  width: 1px;
-  height: 700px;
-  margin: 0;
-  float: left;
-}
-
-#vrr {
-  width: 1px;
-  height: 700px;
-  margin: 0;
-  float: right;
+#score {
+  text-align: center;
+  margin-top: 100px;
 }

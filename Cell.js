@@ -10,7 +10,7 @@ class Cell {
 
         this.explosion = loadSound('Explosion+1.mp3');
 
-        if (random(1) < 0.25) {
+        if (random(1) < 0.2) {
             this.mine = true;
         } else {
             this.mine = false;
