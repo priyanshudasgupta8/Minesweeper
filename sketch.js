@@ -74,6 +74,24 @@ function draw() {
         grid[i][j].display();
       }
     }
+
+    if (touches.length > 0) {
+      for (var i = 0; i < cols; i++) {
+        for (var j = 0; j < rows; j++) {
+          if (grid[i][j].contains(mouseX, mouseY)) {
+            grid[i][j].reveal();
+            if (!grid[i][j].mine) {
+              score += 10;
+            } else {
+              score = 0;
+              GameState = 'end';
+            }
+          }
+        }
+      }
+      touches = [];
+    }
+
   }
 
   if (GameState == 'end') {
@@ -81,7 +99,13 @@ function draw() {
 
     fill('blue');
     textSize(15);
+    textAlign(CENTER);
     text("Game Over \n You Stepped on a Mine \n Make Better and \n Thought-through \n Decisions Next Time \n \n Reload the page to Play Again", width/2, (height/2) - 50)
+
+    if (touches.length > 0) {
+      mineSound.play();
+      touches = [];
+    }
   }
 }
 
@@ -102,4 +126,9 @@ function mousePressed(event) {
     }
   }
   
+  if (event.button == 0) {
+    if (GameState == 'end'){
+      mineSound.play();
+    }
+  }
 }

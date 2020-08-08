@@ -111,25 +111,5 @@ class Cell {
             }
           }
         }
-      };
-
-
-
-// /*  colorize() {
-//         fill(100);
-//         noStroke();
-//         rect(this.x, this.y, this.w, this.w);
-//     }
-
-//     updateScore(score) {
-//         if(mousePressed() && grid[i][j].contains(mouseX, mouseY) && this.mine == false) {
-//             score++;
-//             console.log(score);
-//         } else if (mousePressed() && grid[i][j].contains(mouseX, mouseY) && this.mine == true) {
-//             score -= 5;
-//             console.log(score);
-//         }
-//     }    
-// }
-//
+    };
 }

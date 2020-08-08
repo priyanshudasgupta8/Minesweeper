@@ -7,7 +7,7 @@ body {
   background-image: url("bg.jpg");
   color: aliceblue;
   margin: 0;
-  font-family: "san-serif", "Arial Black", "Montserrat", "Avenir";
+  font-family: "sans-serif", "Montserrat", "Avenir";
 }
 
 main {
@@ -20,5 +20,6 @@ h2 {
 
 #score {
   text-align: center;
+  font-size: 20px;
   margin-top: 100px;
 }
